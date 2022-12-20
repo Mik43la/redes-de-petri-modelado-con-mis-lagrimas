@@ -1,25 +1,27 @@
 package test;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import net.hostettler.jdd.dd.DD;
+import net.hostettler.jdd.dd.ddd.DDDImpl;
+
 public class PetriNet {
-	/*Map<String, String> structure = new HashMap<String, String>(); // Lugares, transiciones que salen de los lugares
-	Map<String, Integer> initialMarking   = new HashMap<String, Integer>();  //place, marks //se puede reemplazar por set 
-	// con las marcas como atributo de los objetos en el set// map, key places, value transicions list?
-	public PetriNet(Map<String, String> structure, Map<String, Integer> initialMarking) {
-		this.structure = structure;
-		this.initialMarking = initialMarking;
-	}*/
+	
 	
 	private Set<Place> structure = new HashSet<Place>();
 	private Set<Transicion> transicions = new HashSet<Transicion>();
+	private DD<String, Integer> result;
+	DD<String, Integer> res = (DD<String, Integer>)  DDDImpl.DDD_TRUE;
 	
 	
 	public PetriNet(Set<Place> structure, Set<Transicion> transicions) {
-		this.structure = structure;
+ 		this.structure = structure;
 		this.transicions = transicions;
 	}
 
@@ -43,6 +45,34 @@ public class PetriNet {
 		this.transicions = transicions;
 	}
 	
+	
+	public void imprimir() {
+		
+		
+		List<Place> reversedSet = new ArrayList<>(structure);
+        Collections.reverse(reversedSet);
+        
+		for(Place a: structure) {
+			System.out.println("Lugar:" + a.getName() + " Cantidad de marcas: "+ a.getMarks());
+			
+			
+			res = DDDImpl.create(a.getName().toString(), a.getMarks(), res);
+
+		}
+		
+		
+		result = res;
+	
+        
+        System.out.println(result);
+        
+        
+		for(Transicion a: transicions) {
+			System.out.println();
+		}
+		
+		
+	}
 	
 	
 	
