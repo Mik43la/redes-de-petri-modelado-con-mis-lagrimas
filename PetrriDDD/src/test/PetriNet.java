@@ -54,8 +54,6 @@ public class PetriNet {
         
 		for(Place a: structure) {
 			System.out.println("Lugar:" + a.getName() + " Cantidad de marcas: "+ a.getMarks());
-			
-			
 			res = DDDImpl.create(a.getName().toString(), a.getMarks(), res);
 
 		}
@@ -63,11 +61,20 @@ public class PetriNet {
 		
 		result = res;
 	
-        
-        System.out.println(result);
+        System.out.println("Marcado Inicial * ");
+        System.out.println("result: "+ result);
+        System.out.println();
         
         
 		for(Transicion a: transicions) {
+			System.out.println("Transicion ");
+			for(String prekeys: a.getPre().keySet()) {
+				System.out.println("pre: "+prekeys+" mark amount being taken: "+ a.getPre().get(prekeys));
+			}
+			System.out.println();
+			for(String postkeys: a.getPost().keySet()) {
+				System.out.println("post: "+postkeys+" marks given: "+ a.getPost().get(postkeys));
+			}
 			System.out.println();
 		}
 		
